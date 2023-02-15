@@ -60,10 +60,10 @@ jobs:
         npm run modyo-push "$MODYO_WIDGET_NAME"
       env:
         GITHUB_TOKEN: ${{ input.github-token }}
-        MODYO_ACCOUNT_URL: ${{input.modyo-account-url}}
+        MODYO_ACCOUNT_URL: ${{secrets.modyo-account-url}}
         MODYO_VERSION: ${{input.modyo-version}}
-        MODYO_TOKEN: ${{input.modyo-token}}
-        MODYO_SITE_ID: ${{input.modyo-site-id}}
+        MODYO_TOKEN: ${{secrets.modyo-token}}
+        MODYO_SITE_ID: ${{secrets.modyo-site-id}}
         MODYO_BUILD_DIRECTORY: ${{input.build-directory}}
         MODYO_REGEX_EXCLUDE: ${{input.exclude-folders}}
         MODYO_DISABLE_LIQUID: ${{input.disable-liquid}}
