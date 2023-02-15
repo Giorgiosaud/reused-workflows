@@ -29,7 +29,7 @@ on:
         description: 'regex to exclude Files on liquid parser'
         type: string
       github-token:
-        description: 'GITHUB_TOKEN or a `repo` scoped Personal Access Token (PAT)'
+        description: 'GITHUB_TOKEN or a scoped Personal Access Token (PAT)'
         required: false
         default: ${{ github.token }}
     # TODO: add modyo url of widget in output
