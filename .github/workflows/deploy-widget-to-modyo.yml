@@ -29,6 +29,7 @@ on:
         description: 'regex to exclude Files on liquid parser'
         type: string
       github-token:
+        type: string
         description: 'GITHUB_TOKEN or a scoped Personal Access Token (PAT)'
         required: false
         default: ${{ github.token }}
