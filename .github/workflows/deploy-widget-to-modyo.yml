@@ -38,7 +38,8 @@ on:
     #   page_url:
     #     description: 'URL to deployed in Modyo'
 jobs:
-  build:
+  push-to-modyo:
+    name: Push Widget To Modyo
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
