@@ -46,10 +46,11 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-        registry-url: https://npm.pkg.github.com/
         cache: npm
     - name: install dependencies
       run: npm i -g @modyo/cli
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.TOKEN_REG }}
     - name: Push to Production
       run: |
         MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
