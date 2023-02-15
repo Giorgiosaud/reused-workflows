@@ -4,13 +4,10 @@ on:
     secrets:
       modyo-token:
         required: true
-        type: string
       modyo-site-id:
         required: true
-        type: string
       modyo-account-url:
         required: true
-        type: string
     inputs:
       modyo-version:
         required: false
