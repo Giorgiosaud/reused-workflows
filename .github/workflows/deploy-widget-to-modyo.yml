@@ -1,19 +1,20 @@
 name: Deploy widget to Modyo
 on:
   workflow_call:
-    inputs:
-      modyo-account-url:
-        required: true
-        type: string
-      modyo-version:
-        required: false
-        default: '9'
-        type: string
+    secrets:
       modyo-token:
         required: true
         type: string
       modyo-site-id:
         required: true
+        type: string
+      modyo-account-url:
+        required: true
+        type: string
+    inputs:
+      modyo-version:
+        required: false
+        default: '9'
         type: string
       build-directory:
         description: 'Where is the path of the index.html to upload builded'
@@ -64,7 +65,6 @@ jobs:
         MODYO_ACCOUNT_URL: ${{input.modyo-account-url}}
         MODYO_VERSION: ${{input.modyo-version}}
         MODYO_TOKEN: ${{input.modyo-token}}
-        MODYO_SITE_ID: ${{input.modyo-site-id}}
         MODYO_SITE_ID: ${{input.modyo-site-id}}
         MODYO_BUILD_DIRECTORY: ${{input.build-directory}}
         MODYO_REGEX_EXCLUDE: ${{input.exclude-folders}}
