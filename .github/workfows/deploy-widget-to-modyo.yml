@@ -1,0 +1,72 @@
+name: Deploy widget to Modyo
+on:
+  workflow_call:
+    inputs:
+      modyo-account-url:
+        required: true
+        type: string
+      modyo-version:
+        required: false
+        default: '9'
+        type: string
+      modyo-token:
+        required: true
+        type: string
+      modyo-site-id:
+        required: true
+        type: string
+      build-directory:
+        description: 'Where is the path of the index.html to upload builded'
+        type: string
+        default: 'dist'
+      exclude-files:
+        description: 'regex to exclude Files on build to modyo process'
+        type: string
+        default: 'preview_script.js'
+      disable-liquid:
+        description: 'raw content and dont parse liquid'
+        type: boolean
+        default: false
+      exclude-files-from-liquid:
+        description: 'regex to exclude Files on liquid parser'
+        type: string
+      github-token:
+        description: 'GITHUB_TOKEN or a `repo` scoped Personal Access Token (PAT)'
+        required: false
+        default: ${{ github.token }}
+    # TODO: add modyo url of widget in output
+    # outputs:
+    #   page_url:
+    #     description: 'URL to deployed in Modyo'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: setup node.js v16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        registry-url: https://npm.pkg.github.com/
+        cache: npm
+    - name: install dependencies
+      run: npm ci
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.TOKEN_REG }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push to Production
+      run: |
+        MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
+        echo $MODYO_WIDGET_NAME
+        npm run modyo-push "$MODYO_WIDGET_NAME"
+      env:
+        GITHUB_TOKEN: ${{ input.github-token }}
+        MODYO_ACCOUNT_URL: ${{input.modyo-account-url}}
+        MODYO_VERSION: ${{input.modyo-version}}
+        MODYO_TOKEN: ${{input.modyo-token}}
+        MODYO_SITE_ID: ${{input.modyo-site-id}}
+        MODYO_SITE_ID: ${{input.modyo-site-id}}
+        MODYO_BUILD_DIRECTORY: ${{input.build-directory}}
+        MODYO_REGEX_EXCLUDE: ${{input.exclude-folders}}
+        MODYO_DISABLE_LIQUID: ${{input.disable-liquid}}
+        MODYO_DISABLE_LIQUID_REGEX: ${{input.exclude-files-from-liquid}}
