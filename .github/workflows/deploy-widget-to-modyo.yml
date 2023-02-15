@@ -49,15 +49,12 @@ jobs:
         registry-url: https://npm.pkg.github.com/
         cache: npm
     - name: install dependencies
-      run: npm ci
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.TOKEN_REG }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm i -g @modyo/cli
     - name: Push to Production
       run: |
         MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
         echo $MODYO_WIDGET_NAME
-        npm run modyo-push "$MODYO_WIDGET_NAME"
+        modyo-cli push "$MODYO_WIDGET_NAME"
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
         MODYO_ACCOUNT_URL: ${{secrets.modyo-account-url}}
