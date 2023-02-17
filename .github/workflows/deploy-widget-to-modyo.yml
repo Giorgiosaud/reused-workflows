@@ -65,6 +65,7 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.TOKEN_REG }}
     - name: Push to Production
       run: |
+        echo $MODYO_ACCOUNT_URL
         MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
         echo $MODYO_WIDGET_NAME
         modyo-cli push "$MODYO_WIDGET_NAME"
