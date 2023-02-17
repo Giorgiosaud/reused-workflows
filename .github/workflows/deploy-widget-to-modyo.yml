@@ -81,14 +81,14 @@ jobs:
         echo $MODYO_REGEX_EXCLUDE
         echo $MODYO_DISABLE_LIQUID
         echo $MODYO_DISABLE_LIQUID_REGEX
-        echo "${inputs.environment}"
-        echo "${inputs.artifact-name}"
-        echo "${inputs.modyo-version}"
-        echo "${inputs.build-directory}"
-        echo "${inputs.exclude-files}"
-        echo "${inputs.disable-liquid}"
-        echo "${inputs.exclude-files-from-liquid}"
-        echo "${inputs.github-token}"
+        echo "environment: ${{inputs.environment}}"
+        echo "artifact-name: ${{inputs.artifact-name}}"
+        echo "modyo-version: ${{inputs.modyo-version}}"
+        echo "build-directory: ${{inputs.build-directory}}"
+        echo "exclude-files: ${{inputs.exclude-files}}"
+        echo "disable-liquid: ${{inputs.disable-liquid}}"
+        echo "exclude-files-from-liquid: ${{inputs.exclude-files-from-liquid}}"
+        echo "github-token: ${{inputs.github-token}}"
     # - name: Push to Production
     #   run: |
     #     MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
