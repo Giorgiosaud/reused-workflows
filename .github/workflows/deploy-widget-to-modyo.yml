@@ -18,10 +18,6 @@ on:
       modyo-version:
         default: '9'
         type: string
-      build-directory:
-        description: 'Where is the path of the index.html to upload builded'
-        type: string
-        default: 'dist'
       exclude-files:
         description: 'regex to exclude Files on build to modyo process'
         type: string
@@ -69,6 +65,8 @@ jobs:
       with:
         name: ${{inputs.artifact-name}}
         path: dist/
+    - name: ls
+      run: ls -R
     - name: show vars
       run: |
         ls
@@ -101,7 +99,6 @@ jobs:
         MODYO_VERSION: ${{vars.VERSION}}
         MODYO_TOKEN: ${{secrets.modyo-token}}
         MODYO_SITE_ID: ${{vars.SITE_ID}}
-        MODYO_BUILD_DIRECTORY: ${{inputs.build-directory}}
         MODYO_REGEX_EXCLUDE: ${{inputs.exclude-folders}}
         MODYO_DISABLE_LIQUID: ${{inputs.disable-liquid}}
         MODYO_DISABLE_LIQUID_REGEX: ${{inputs.exclude-files-from-liquid}}
