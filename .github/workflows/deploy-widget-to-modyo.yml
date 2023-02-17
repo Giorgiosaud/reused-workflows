@@ -4,11 +4,14 @@ on:
     secrets:
       modyo-token:
         required: true
-      modyo-site-id:
-        required: true
-      modyo-account-url:
-        required: true
+      # modyo-site-id:
+      #   required: true
+      # modyo-account-url:
+      #   required: true
     inputs:
+      environment:
+        required: true
+        type: string
       modyo-version:
         required: false
         default: '9'
@@ -40,6 +43,7 @@ on:
 jobs:
   push-to-modyo:
     name: Push Widget To Modyo
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -66,10 +70,10 @@ jobs:
         modyo-cli push "$MODYO_WIDGET_NAME"
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        MODYO_ACCOUNT_URL: ${{secrets.modyo-account-url}}
-        MODYO_VERSION: ${{inputs.modyo-version}}
+        MODYO_ACCOUNT_URL: ${{vars.modyo-account-url}}
+        MODYO_VERSION: ${{vars.modyo-version}}
         MODYO_TOKEN: ${{secrets.modyo-token}}
-        MODYO_SITE_ID: ${{secrets.modyo-site-id}}
+        MODYO_SITE_ID: ${{vars.modyo-site-id}}
         MODYO_BUILD_DIRECTORY: ${{inputs.build-directory}}
         MODYO_REGEX_EXCLUDE: ${{inputs.exclude-folders}}
         MODYO_DISABLE_LIQUID: ${{inputs.disable-liquid}}
