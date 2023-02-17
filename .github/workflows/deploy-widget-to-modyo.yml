@@ -16,7 +16,6 @@ on:
         required: true
         type: string
       modyo-version:
-        required: false
         default: '9'
         type: string
       build-directory:
@@ -50,27 +49,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Cache Build Dir
-      id: build-dir
-      uses: actions/cache@v3
-      with:
-        path: dist
-        key: ${{ inputs.cache-key }}
-    - name: setup node.js v16
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        registry-url: 'https://registry.npmjs.org'
-        cache: npm
-    - name: install dependencies
-      run: npm i -g @modyo/cli
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.TOKEN_REG }}
-    - name: Download a single artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: ${{inputs.artifact-name}}
-    - name: Push to Production
+    # - name: Cache Build Dir
+    #   id: build-dir
+    #   uses: actions/cache@v3
+    #   with:
+    #     path: dist
+    #     key: ${{ inputs.cache-key }}
+    # - name: setup node.js v16
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: 16.x
+    #     registry-url: 'https://registry.npmjs.org'
+    #     cache: npm
+    # - name: install dependencies
+    #   run: npm i -g @modyo/cli
+    #   env:
+    #     NODE_AUTH_TOKEN: ${{ secrets.TOKEN_REG }}
+    # - name: Download a single artifact
+    #   uses: actions/download-artifact@v3
+    #   with:
+    #     name: ${{inputs.artifact-name}}
+    - name: show vars
       run: |
         echo "#VARS"
         echo $MODYO_ACCOUNT_URL
@@ -82,10 +81,19 @@ jobs:
         echo $MODYO_REGEX_EXCLUDE
         echo $MODYO_DISABLE_LIQUID
         echo $MODYO_DISABLE_LIQUID_REGEX
-        
-        MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
-        echo $MODYO_WIDGET_NAME
-        modyo-cli push "$MODYO_WIDGET_NAME"
+        echo "${inputs.environment}"
+        echo "${inputs.artifact-name}"
+        echo "${inputs.modyo-version}"
+        echo "${inputs.build-directory}"
+        echo "${inputs.exclude-files}"
+        echo "${inputs.disable-liquid}"
+        echo "${inputs.exclude-files-from-liquid}"
+        echo "${inputs.github-token}"
+    # - name: Push to Production
+    #   run: |
+    #     MODYO_WIDGET_NAME=$(echo $GITHUB_REPOSITORY| sed -e 's/modyo\///')
+    #     echo $MODYO_WIDGET_NAME
+    #     modyo-cli push "$MODYO_WIDGET_NAME"
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
         MODYO_ACCOUNT_URL: ${{vars.BASE_URL}}
