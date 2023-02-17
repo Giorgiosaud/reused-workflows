@@ -70,7 +70,7 @@ jobs:
         modyo-cli push "$MODYO_WIDGET_NAME"
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        MODYO_ACCOUNT_URL: ${{vars.modyo-account-url}}
+        MODYO_ACCOUNT_URL: ${{vars.BASE_URL}}
         MODYO_VERSION: ${{vars.modyo-version}}
         MODYO_TOKEN: ${{secrets.modyo-token}}
         MODYO_SITE_ID: ${{vars.modyo-site-id}}
