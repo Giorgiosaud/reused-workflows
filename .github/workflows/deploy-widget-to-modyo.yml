@@ -68,6 +68,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: ${{inputs.artifact-name}}
+        path: dist/
     - name: show vars
       run: |
         ls
