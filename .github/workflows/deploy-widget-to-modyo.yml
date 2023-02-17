@@ -69,7 +69,6 @@ jobs:
       run: ls -R
     - name: show vars
       run: |
-        ls
         echo "#VARS"
         echo $MODYO_ACCOUNT_URL
         echo $MODYO_VERSION
