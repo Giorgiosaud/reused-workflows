@@ -70,6 +70,7 @@ jobs:
         name: ${{inputs.artifact-name}}
     - name: show vars
       run: |
+        ls
         echo "#VARS"
         echo $MODYO_ACCOUNT_URL
         echo $MODYO_VERSION
